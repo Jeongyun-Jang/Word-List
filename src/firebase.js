@@ -6,13 +6,7 @@ import "firebase/firestore";
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
-    /*apiKey: "AIzaSyD_JUXKzNiUQOm2yP0vBnY4os-rX6uEagQ",
-    authDomain: "mydictionary-a3b44.firebaseapp.com",
-    projectId: "mydictionary-a3b44",
-    storageBucket: "mydictionary-a3b44.appspot.com",
-    messagingSenderId: "206569074281",
-    appId: "1:206569074281:web:3480acb48c228ff0c1fcf8"
-*/
+
     apiKey: "AIzaSyDKClOp-r42fDQSvecb_Cc8_QyEMxclRH8",
     authDomain: "word-list-62725.firebaseapp.com",
     projectId: "word-list-62725",

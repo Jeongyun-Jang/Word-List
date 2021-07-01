@@ -3,7 +3,6 @@ import { firestore } from "../../firebase";
 // Actions
 const LOAD = "word/LOAD";
 const CREATE = "word/CREATE";
-//const UPDATE = "word/UPDATE";
 
 const word_db = firestore.collection("word");
 

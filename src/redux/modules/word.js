@@ -1,40 +1,20 @@
-//수정중
 import { firestore } from "../../firebase";
 
 // Actions
 const LOAD = "word/LOAD";
 const CREATE = "word/CREATE";
-//const UPDATE = "bucket/UPDATE";
-
-
-const initialState = {
-    word_list: [
-        {
-        id: "list_0",
-        word: "ㅎ1ㅎ1",
-        desc: "히히를 변형한 단어. 숫자 1을 'ㅣ'로 쓴다.",
-        example: "저 친구가 초콜릿을 줬어. ㅎ1ㅎ1",
-        },
-        {
-        id: "list_1",
-        word: "ㅎrㅎrㅎr",
-        desc: "하하를 변형한 단어. r을 'ㅏ'로 쓴다.",
-        example: "저 친구가 초콜릿을 줬어. ㅎrㅎr",
-        },
-        {
-        id: "list_2",
-        word: "ㅎHㅎH",
-        desc: "해해를 변형한 단어. H을 'ㅐ'로 쓴다.",
-        example: "저 친구가 초콜릿을 줬어. ㅎ1ㅎ1",
-        },
-    ]
-};
+//const UPDATE = "word/UPDATE";
 
 const word_db = firestore.collection("word");
 
+
+const initialState = {
+    word_list: []
+};
+
 // Action Creators
-export const loadWord = (word_list) => {
-  return { type: LOAD, word_list };
+export const loadWord = (word) => {
+  return { type: LOAD, word };
 };
 
 export const createWord = (word) => {
@@ -42,38 +22,29 @@ export const createWord = (word) => {
 };
 
 
-// 파이어베이스랑 통신하는 부분
 export const loadWordFB = () => {
-  return function (dispatch) {
-    word_db.get().then((docs) => {
-      let word_data = [];
+  return function (dispatch) {//미들웨어 부분
+    word_db.get().then((docs) => {//응답 받은 모든 documant를 then에서 가져옴
+      let word_data = [];//리덕스에 넣기 위한 배열
       docs.forEach((doc) => {
-        // 도큐먼트 객체를 확인해보자!
-        console.log(doc);
-        // 도큐먼트 데이터 가져오기
-        console.log(doc.data());
-        // 도큐먼트 id 가져오기
-        console.log(doc.id);
-
         if (doc.exists) {
-          word_data = [...word_data, { id: doc.id, ...doc.data() }];
+            word_data = [...word_data, doc.data()]; //word_data = [...word_data, { id: doc.id, ...doc.data() }]; //id를 가져와 수정 삭제 할때는 주석처리 같이함
         }
       });
 
       console.log(word_data);
-      // 이제 액션이 디스패치 되도록 해줍시다! 그러면 끝!
+      // 이제 액션이 디스패치
       dispatch(loadWord(word_data));
     });
   };
 };
 
-export const addWordFB = (word) => {
+export const addWordFB = (word) => {    
+
   return function (dispatch) {
 
-    // 생성할 데이터를 미리 만들게요!
-    let word_data = { id: word.id, word: word.word, desc: word.desc, example: word.example };
+    let word_data = { word: word.word, desc: word.desc, example: word.example };
 
-    // add()에 데이터를 넘겨줍시다!
     word_db
       .add(word_data)
       .then((docRef) => {
@@ -99,17 +70,17 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
     // do reducer stuff
     case "word/LOAD": {
-        if(action.word.length >0){
-          return { word_list: action.word_list };
+        if(action.word.length >0){//비어있지 않다면
+          return { word_list: action.word };
         }
   
         return state;
       }
 
     case "word/CREATE": {
-      const new_word_list = [...state.word_list, action.word,];
+      const new_word_list = [...state.word_list, action.word];
       //return { ...state, word_list: new_word_list };
-      return { word_list: new_word_list };
+      return {  ...state, word_list: new_word_list };
     }
 
 

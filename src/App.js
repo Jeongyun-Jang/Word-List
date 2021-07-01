@@ -8,11 +8,6 @@ import styled from "styled-components";
 import Write from "./Write";
 import WordList from "./WordList";
 
-/**
- * BrowserRouter를 사용해서 라우터를 잡아줍니다.
- * /에는 목록 페이지를, /write에는 작성 페이지를 엮어줍니다. (path는 각각의 주소를, component에는 각각 페이지를 담당하는 컴포넌트를 넣어줘요!)
- * 
- */
 const App = () => {
   
   return (
@@ -28,7 +23,6 @@ const App = () => {
 }
 
 
-// 가장 바깥에 있을 div 스타일을 잡아줄거예요.
 const Container = styled.div`
   max-width: 350px;
   min-height: 60vh;

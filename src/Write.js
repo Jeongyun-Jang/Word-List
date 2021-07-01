@@ -1,43 +1,38 @@
-//수정중
-import React from "react";
+
 import styled from "styled-components";
 
 import {useDispatch} from "react-redux";
 import {createWord} from "./redux/modules/word";
 
+import { addWordFB } from "./redux/modules/word";
+import React from "react";
 
 const Write = (props) => {
-  // 여기에서 ref도 세개 잡아줄 거예요. (과제 요구사항에서 ref로 input의 텍스트를 받아와달라고 했으니, ref를 써봅시다!)
-  // 각각 word_ref, desc_ref, example_ref라고 이름 붙였어요.
-  // 초기값은 null입니다! (<input ref={~~}/> <- 여기에서 ref= 다음에 나오는 {}에 넣어주기 전까지는 아무 값도 없단 뜻으로요!)
 
   const dispatch = useDispatch();
 
   const word_ref = React.useRef(null);
   const desc_ref = React.useRef(null);
   const example_ref = React.useRef(null);
-  let count = 0;
+  let count = 0;  
 
+  const addWord = () =>{
+        const word = {          
+          word: word_ref.current.value,
+          desc: desc_ref.current.value,
+          example: example_ref.current.value,
+        }
 
+        {/*this.props.create(word);*/}
 
-const addWord = () =>{
-      const word = {
-        
-        id:String(count),
-        word: word_ref.current.value,
-        desc: desc_ref.current.value,
-        example: example_ref.current.value,
-      }
-
-      {/*this.props.create(word);*/}
-
-      if(dispatch(createWord(word)))  {
-        console.log(word);
-        count += 1;
-      }
-      props.history.replace("/");
-  
-  }
+        if(dispatch(createWord(word)))  {
+          console.log(word);
+          count += 1;
+          dispatch(addWordFB(word))
+        }
+        props.history.replace("/");
+    
+    }
 
   return (
     <React.Fragment>{/*로 감싸서 반환한다면 Fragment는 dom에 추가되지 않기*/}
@@ -66,7 +61,7 @@ const addWord = () =>{
 
 // 제목 스타일을 잡아줄 거예요.
 const Title = styled.h1`
-  width: 20vw;
+  width: 40vw;
   margin: 8px auto;
 `;
 
@@ -74,7 +69,7 @@ const Title = styled.h1`
 // 이 div 아래에 있는 p 태그에 접근할 때는 & > p로 접근할 수 있어요.
 // 이 div 아래에 있는 input 태그에 접근할 때는 & > input으로 접근할 수 있어요.
 const InputWrapper = styled.div`
-  width: 20vw;
+  width: 40vw;
   height: auto;
   display: flex;
   flex-direction: column;

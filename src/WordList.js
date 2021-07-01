@@ -56,7 +56,7 @@ const Title = styled.h1`
 `;
 
 const Card = styled.div`
-  width: 40vw;
+  width: 20vw;
   height: auto;
   display: flex;
   flex-direction: column;

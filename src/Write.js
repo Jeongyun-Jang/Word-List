@@ -69,7 +69,7 @@ const Title = styled.h1`
 // 이 div 아래에 있는 p 태그에 접근할 때는 & > p로 접근할 수 있어요.
 // 이 div 아래에 있는 input 태그에 접근할 때는 & > input으로 접근할 수 있어요.
 const InputWrapper = styled.div`
-  width: 40vw;
+  width: 20vw;
   height: auto;
   display: flex;
   flex-direction: column;

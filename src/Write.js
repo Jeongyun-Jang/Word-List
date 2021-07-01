@@ -30,8 +30,8 @@ const Write = (props) => {
           count += 1;
           dispatch(addWordFB(word))
         }
-        props.history.replace("/");
-    
+        props.history.replace("/"); //history를 스택이라고 생각했을 때, push는 history 제일 위에 쌓는 것이고, replace는 history 제일 위에 있는 원소를 지금 넣을 원소로 바꾸는 것이다.
+     
     }
 
   return (
